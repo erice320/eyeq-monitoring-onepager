@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EyeQ Monitoring | Rev.io Overview</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface-2: #222735;
+      --text: #e8eaf6;
+      --muted: #b6bdd2;
+      --quiet: #828aa0;
+      --accent: #6c63ff;
+      --accent-2: #00d4aa;
+      --line: rgba(255,255,255,.12);
+      --warn: #ffb454;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-height: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.28;
+    }
+
+    a { color: inherit; }
+
+    .sheet {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: .32in;
+      background:
+        linear-gradient(135deg, rgba(108,99,255,.18), transparent 26%),
+        linear-gradient(180deg, #0f1117 0%, #11141c 100%);
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 10px;
+    }
+
+    .hero,
+    .fit-card,
+    .panel,
+    .quote {
+      border: 1px solid var(--line);
+      background: rgba(26,29,39,.92);
+    }
+
+    .hero {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 178px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      text-transform: none;
+    }
+
+    h1 {
+      margin: 16px 0 8px;
+      font-size: 34px;
+      line-height: .98;
+      letter-spacing: 0;
+      max-width: 620px;
+    }
+
+    .subtitle {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .pill.strong {
+      border-color: rgba(0,212,170,.42);
+      background: rgba(0,212,170,.14);
+      color: #dbfff7;
+    }
+
+    .fit-card {
+      padding: 14px 16px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+      min-height: 148px;
+      background:
+        linear-gradient(140deg, rgba(0,212,170,.16), transparent 42%),
+        var(--surface);
+    }
+
+    .fit-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .fit-badge {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0,212,170,.45);
+      color: #e0fff8;
+      font-size: 16px;
+      font-weight: 900;
+      text-align: center;
+      line-height: .95;
+      background: rgba(0,212,170,.1);
+    }
+
+    .label {
+      margin-bottom: 7px;
+      color: var(--accent-2);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 5px;
+      font-size: 12px;
+      line-height: 1.15;
+    }
+
+    p { margin: 0; color: var(--muted); font-size: 11px; }
+
+    .fit-card p { font-size: 11px; }
+
+    .signals {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      align-self: end;
+    }
+
+    .signal {
+      min-height: 54px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+
+    .signal b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .signal span { color: var(--quiet); font-size: 9px; line-height: 1.2; }
+
+    .visual-strip {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .site-shot {
+      position: relative;
+      min-height: 190px;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #080a0f;
+    }
+
+    .site-shot img {
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .site-shot.home img { object-position: center 28%; }
+    .site-shot.soc img { object-position: center 18%; }
+
+    .shot-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 30px 13px 12px;
+      background: linear-gradient(180deg, transparent, rgba(8,10,15,.9));
+      color: #fff;
+    }
+
+    .shot-caption b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+      line-height: 1.1;
+    }
+
+    .shot-caption span {
+      color: rgba(232,234,246,.78);
+      font-size: 9px;
+      line-height: 1.2;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .panel { padding: 12px; }
+
+    .stack { display: grid; gap: 10px; }
+
+    .angle {
+      display: grid;
+      grid-template-columns: 102px 1fr;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .angle:first-of-type { border-top: 0; padding-top: 0; }
+
+    .angle b { color: var(--text); font-size: 10px; line-height: 1.12; }
+    .angle span { color: var(--muted); font-size: 9.3px; line-height: 1.2; }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 5px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 13px;
+      color: var(--muted);
+      font-size: 9.5px;
+      line-height: 1.18;
+    }
+
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .48em;
+      width: 5px;
+      height: 5px;
+      background: var(--accent-2);
+    }
+
+    .value-band {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      margin-top: 11px;
+    }
+
+    .step {
+      min-height: 64px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .step b { color: var(--text); font-size: 10px; }
+    .step span { color: var(--quiet); font-size: 8.2px; line-height: 1.15; }
+
+    .quote-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .quote {
+      padding: 10px;
+      min-height: 65px;
+    }
+
+    .quote p {
+      color: var(--text);
+      font-size: 9.8px;
+      line-height: 1.2;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 18px;
+      color: var(--quiet);
+      font-size: 7.8px;
+      line-height: 1.3;
+    }
+
+    .footer a { color: var(--muted); text-decoration-color: rgba(174,180,200,.45); }
+
+    @media print {
+      @page { size: letter portrait; margin: 0; }
+      html, body {
+        width: 8.5in;
+        height: 11in;
+        overflow: hidden;
+        background: #0f1117;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .sheet {
+        width: 8.5in;
+        height: 11in;
+        margin: 0;
+        padding: .32in;
+        overflow: hidden;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .sheet {
+        width: min(100vw, 680px);
+        min-height: auto;
+        padding: 20px;
+      }
+      .top,
+      .main-grid,
+      .value-band,
+      .visual-strip,
+      .quote-row,
+      .footer {
+        grid-template-columns: 1fr;
+      }
+      .signals,
+      .flow {
+        grid-template-columns: 1fr 1fr;
+      }
+      .angle { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="top">
+      <div class="hero">
+        <div>
+          <div class="brand">
+            <span class="logo">Rev.io</span>
+            <span>Tailored overview for EyeQ Monitoring</span>
+          </div>
+          <h1>Revenue operations for AI-enabled monitoring providers.</h1>
+          <p class="subtitle">Rev.io gives EyeQ a unified operating layer for recurring monitoring revenue: billing, contract changes, payments, service workflows, customer hierarchy, and AI-assisted visibility across the business.</p>
+        </div>
+        <div class="pills">
+          <span class="pill strong">ICP fit: strong adjacent</span>
+          <span class="pill">Billing + payments wedge</span>
+          <span class="pill">PSA if service ops are in scope</span>
+        </div>
+      </div>
+
+      <div class="fit-card">
+        <div class="fit-head">
+          <div>
+            <div class="label">Why Rev.io fits</div>
+            <h2>EyeQ packages technology, people, sites, and response into recurring managed services.</h2>
+          </div>
+          <div class="fit-badge">ICP<br>Fit</div>
+        </div>
+        <p>That model creates classic Rev.io value: clean recurring invoices, productized service bundles, parent/child account hierarchy, payments and collections, and connected workflows when installs or maintenance need to tie back to revenue.</p>
+        <div class="signals">
+          <div class="signal"><b>AI + SOC</b><span>Monitoring, response, and incident workflows</span></div>
+          <div class="signal"><b>Multi-site</b><span>Dealerships, properties, and location-based accounts</span></div>
+          <div class="signal"><b>IPVM</b><span>Design output can inform quote and service setup</span></div>
+          <div class="signal"><b>QTC</b><span>Contracts, recurring charges, payments, collections</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="visual-strip">
+      <figure class="site-shot home">
+        <img src="assets/eyeq/homepage-hero.png" alt="EyeQ Monitoring website showing AI monitoring for business properties">
+        <figcaption class="shot-caption">
+          <b>EyeQ positioning</b>
+          <span>AI monitoring, virtual guard, and business intelligence messaging from the public site.</span>
+        </figcaption>
+      </figure>
+      <figure class="site-shot soc">
+        <img src="assets/eyeq/soc-page.png" alt="EyeQ Monitoring SOC article showing security operations center monitors">
+        <figcaption class="shot-caption">
+          <b>Operational proof point</b>
+          <span>SOC-oriented service model, response workflows, and monitoring-center operations.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="main-grid">
+      <div class="panel">
+        <div class="label">Primary Rev.io angles</div>
+        <div class="angle">
+          <b>Scale recurring revenue</b>
+          <span>Automate monthly billing by customer, site, service package, device count, add-on, and contract terms instead of reconciling spreadsheets or disconnected systems.</span>
+        </div>
+        <div class="angle">
+          <b>Stop leakage from change</b>
+          <span>New cameras, rooftops, monitoring packages, audits, reporting, maintenance, or service-tier changes should flow cleanly from operations to invoices.</span>
+        </div>
+        <div class="angle">
+          <b>Handle customer hierarchy</b>
+          <span>Support parent dealership groups, property managers, sites, contacts, local service bundles, and different billing rules without forcing manual workarounds.</span>
+        </div>
+        <div class="angle">
+          <b>Improve collections</b>
+          <span>Use Rev.io Payments and AR visibility to reduce back-office drag for recurring monitoring contracts and create a clearer cash picture.</span>
+        </div>
+        <div class="angle">
+          <b>Connect service-to-cash</b>
+          <span>If EyeQ handles installs, repairs, camera health checks, or maintenance, Rev.io PSA can connect tickets, projects, work, parts, and billing.</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="label">Standard Rev.io value prop</div>
+        <div class="angle">
+          <b>One platform</b>
+          <span>Bring billing, payments, customer management, contract activity, and service workflows into one AI-native operating platform for service providers.</span>
+        </div>
+        <div class="angle">
+          <b>Billing accuracy</b>
+          <span>Manage recurring, usage-based, site-based, device-based, and one-time charges as services are sold, delivered, and changed.</span>
+        </div>
+        <div class="angle">
+          <b>Operational leverage</b>
+          <span>Automate repetitive quote-to-cash and service workflows so growth does not require back-office headcount to scale at the same pace.</span>
+        </div>
+        <div class="angle">
+          <b>AI assistance</b>
+          <span>Use Revii-style visibility to summarize account status, billing questions, customer context, ticket details, and repetitive operations work.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="value-band">
+      <div class="panel">
+        <div class="label">Design-to-revenue flow Rev.io can consolidate</div>
+        <h2>From monitored site to collected revenue</h2>
+        <div class="flow">
+          <div class="step"><b>Design</b><span>IPVM layout, camera count, coverage, site needs</span></div>
+          <div class="step"><b>Quote</b><span>Hardware, install, monitoring package, add-ons, terms</span></div>
+          <div class="step"><b>Deliver</b><span>Project, ticket, technician, maintenance, SOC onboarding</span></div>
+          <div class="step"><b>Bill</b><span>Recurring monitoring, site/device charges, one-time work</span></div>
+          <div class="step"><b>Collect + expand</b><span>Autopay, AR visibility, upgrades, retention</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="label">Discovery questions</div>
+        <ul>
+          <li>How many active customer sites and monthly invoices?</li>
+          <li>Do they bill per location, camera, service tier, event, or bundled contract?</li>
+          <li>What owns contracts, invoices, payments, and collections today?</li>
+          <li>How often do services change after install?</li>
+          <li>Are installs and maintenance handled by EyeQ teams, partners, or both?</li>
+          <li>Where does IPVM output go after design: quote, CRM, spreadsheet, billing, or service work?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="quote-row">
+      <div class="quote">
+        <div class="label">Point of view</div>
+        <p>For a high-growth monitoring provider, billing precision and operational workflow become strategic advantages, not back-office tasks.</p>
+      </div>
+      <div class="quote">
+        <div class="label">Business outcome</div>
+        <p>Make every new site, camera, monitoring package, service change, and payment flow cleanly from sale to cash.</p>
+      </div>
+      <div class="quote">
+        <div class="label">Best next step</div>
+        <p>Run a 30-minute working session on billing structure, contract changes, payments, and whether field/service operations should be in scope.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Prepared for EyeQ Monitoring | Rev.io overview | Source check: 2026-06-12 UTC</span>
+      <span>Sources: <a href="https://eyeqmonitoring.com/">EyeQ site</a>, <a href="https://eyeqmonitoring.com/2025/03/what-is-a-security-operations-center-soc-and-why-does-it-matter-for-property-owners/">EyeQ SOC article</a>, <a href="https://www.rev.io/">Rev.io site</a>, <a href="https://calculator.ipvm.com/">IPVM calculator</a></span>
+    </div>
+  </main>
+</body>
+</html>
